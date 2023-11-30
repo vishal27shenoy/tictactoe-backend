@@ -15,7 +15,7 @@ app.use(
       "https://admin.socket.io/",
       "https://tictactoe-frontend-ten.vercel.app",
     ],
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST","PUT"],
   })
 );
 connectDB();
