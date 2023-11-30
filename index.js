@@ -13,7 +13,7 @@ app.use(
       "http://localhost:3000",
       "http://localhost:4200",
       "https://admin.socket.io/",
-      "https://tictactoe-frontend-ten.vercel.app/",
+      "https://tictactoe-frontend-ten.vercel.app",
     ],
     methods: ["GET", "POST"],
   })
@@ -38,7 +38,7 @@ const io = require("socket.io")(server, {
       "https://admin.socket.io",
       "http://localhost:3000",
       "http://localhost:4200",
-      "https://tictactoe-frontend-ten.vercel.app/",
+      "https://tictactoe-frontend-ten.vercel.app",
     ],
     methods: ["GET", "POST"],
   },
