@@ -64,9 +64,10 @@ io.on("connection", (socket) => {
   });
 
   socket.on("playagain", (obj) => {
-    const {roomId} = obj;
+    const {roomId,turn} = obj;
     io.to(roomId).emit(roomId,{
-      message : "reset"
+      message : "reset",
+      turn:turn
     });
   });
 
