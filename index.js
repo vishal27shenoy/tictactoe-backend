@@ -1,15 +1,22 @@
+const {instrument} = require('@socket.io/admin-ui');
 const express = require("express");
 const app = express();
 const http = require("http");
-const port = 6000;
+const port = 5000;
 const cors = require("cors");
 const connectDB = require("./config/databaseConnection");
 const socket = require("socket.io");
 app.use(express.json());
 app.use(
-	cors({
-		origin: "*",
-	})
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:4200",
+      "https://admin.socket.io/",
+      "https://kv1d97wl-4200.inc1.devtunnels.ms",
+      "https://gz7582r6-6000.inc1.devtunnels.ms",
+    ],
+  })
 );
 connectDB();
 const server = http.createServer(app);
@@ -20,37 +27,41 @@ server.listen(port, () => {
 	console.log("server started");
 });
 
-const io = socket(server, {
-	cors: {
-		origin: "*",
-		methods: ["GET", "POST", "PUT"],
-		credentials: false,
-	},
-});
+
+
+
 let onlineUsers = new Map();
-io.on("connection", (socket) => {
-	console.log(socket.id,"user connected");
-
-	socket.on("user-connect", (obj) => {
-		const { userId, roomId } = obj;
-		console.log(obj,"from user connect")
-		if(userId){
-			onlineUsers.set(userId, roomId);
-			console.log(onlineUsers,"frm map");
-			socket.join(onlineUsers.get(userId));
-		}
-	});	
-
-
-	socket.on("ongame", (obj) => {
-		const { userId, index, value,turn } = obj;
-		// console.log(onlineUsers.get(userId),userId ,"testing");
-		io.to(onlineUsers.get(userId)).emit(onlineUsers.get(userId), {
-      	userId:userId,
-		index:index,
-		value:value,
-		turn:turn
-    });
-		
-	});
+const io = require("socket.io")(server, {
+  pingTimeout:60000,
+  cors: {
+    origin: [
+      "https://admin.socket.io",
+      "http://localhost:3000",
+      "http://localhost:4200",
+      "https://kv1d97wl-4200.inc1.devtunnels.ms",
+      "https://gz7582r6-6000.inc1.devtunnels.ms",
+    ],
+	
+  },
 });
+io.on("connection", (socket) => {
+  console.log(socket.id);
+
+  socket.on("users-connect", (object) => {
+    const { userId, roomId } = object;
+    console.log(onlineUsers);
+    socket.join(roomId);
+  });
+
+  socket.on("ongame", (obj) => {
+    const { userId, index, value, turn,roomId } = obj;
+    io.to(roomId).emit(roomId, {
+      userId: userId,
+      index: index,
+      value: value,
+      turn: turn,
+    });
+  });
+});
+
+instrument(io, { auth: false });
