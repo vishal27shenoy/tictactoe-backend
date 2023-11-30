@@ -15,6 +15,7 @@ app.use(
       "https://admin.socket.io/",
       "https://kv1d97wl-4200.inc1.devtunnels.ms",
       "https://gz7582r6-6000.inc1.devtunnels.ms",
+      "https://tictactoe-frontend-ten.vercel.app/",
     ],
   })
 );
@@ -32,7 +33,7 @@ server.listen(port, () => {
 
 let onlineUsers = new Map();
 const io = require("socket.io")(server, {
-  pingTimeout:60000,
+  pingTimeout: 60000,
   cors: {
     origin: [
       "https://admin.socket.io",
@@ -40,8 +41,8 @@ const io = require("socket.io")(server, {
       "http://localhost:4200",
       "https://kv1d97wl-4200.inc1.devtunnels.ms",
       "https://gz7582r6-6000.inc1.devtunnels.ms",
+      "https://tictactoe-frontend-ten.vercel.app/",
     ],
-	
   },
 });
 io.on("connection", (socket) => {
