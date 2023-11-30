@@ -62,6 +62,14 @@ io.on("connection", (socket) => {
       turn: turn,
     });
   });
+
+  socket.on("playagain", (obj) => {
+    const {roomId} = obj;
+    io.to(roomId).emit(room,{
+      message : "reset"
+    });
+  });
+
 });
 
 instrument(io, { auth: false });
