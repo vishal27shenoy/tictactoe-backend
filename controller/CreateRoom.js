@@ -6,7 +6,7 @@ const createRoom = async (req, res) => {
 		if (roomID?.length == 0) return;
 		const isExist = await room.findOne({ roomID: roomID });
 		if (isExist) {
-			res.send({ message: "room id already exist",status:400 });
+			res.json({ message: "room id already exist",status:400 });
 			return;
 		}
 		const create = new room({
@@ -15,14 +15,14 @@ const createRoom = async (req, res) => {
 		});
 		const result = await create.save();
 		if (result) {
-			res.send({
+			res.json({
 				message: "Room created sucessfully",
 				status : 200,
 			});
 		}
 	} catch (err) {
 		console.log(err, "this is error");
-		res.send({ message: err.message,status :400 });
+		res.json({ message: err.message,status :400 });
 	}
 };
 

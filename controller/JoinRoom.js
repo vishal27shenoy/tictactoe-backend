@@ -6,7 +6,7 @@ const joinRoom = async (req, res) => {
 		if (roomID?.length == 0) return;
 		const isExist = await room.findOne({ roomID: roomID });
 		if (!isExist) {
-			res.send({ message: "room not found",status:400 });
+			res.json({ message: "room not found",status:400 });
 			return;
 		}
 		console.log(isExist && isExist.userO == "none");
@@ -16,16 +16,16 @@ const joinRoom = async (req, res) => {
 				{ $set: { userO: "Exist" } }
 			);
 			if (updatedRoom) {
-				res.send({ message: "user Joined",status:200 });
+				res.json({ message: "user Joined",status:200 });
 				return;
 			}
 		} else {
-			res.send({ message: "room full", status: 200 });
+			res.json({ message: "room full", status: 200 });
 			return;
 		}
 	} catch (err) {
 		console.log(err, "this is error");
-		res.send({ message: err.message, status: 200 });
+		res.json({ message: err.message, status: 200 });
 	}
 };
 
