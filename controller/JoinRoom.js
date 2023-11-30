@@ -20,12 +20,12 @@ const joinRoom = async (req, res) => {
 				return;
 			}
 		} else {
-			res.json({ message: "room full", status: 200 });
+			res.json({ message: "room full", status: 400 });
 			return;
 		}
 	} catch (err) {
 		console.log(err, "this is error");
-		res.json({ message: err.message, status: 200 });
+		res.json({ message: err.message, status: 400 });
 	}
 };
 
