@@ -13,10 +13,9 @@ app.use(
       "http://localhost:3000",
       "http://localhost:4200",
       "https://admin.socket.io/",
-      "https://kv1d97wl-4200.inc1.devtunnels.ms",
-      "https://gz7582r6-6000.inc1.devtunnels.ms",
       "https://tictactoe-frontend-ten.vercel.app/",
     ],
+    methods: ["GET", "POST"],
   })
 );
 connectDB();
@@ -39,10 +38,9 @@ const io = require("socket.io")(server, {
       "https://admin.socket.io",
       "http://localhost:3000",
       "http://localhost:4200",
-      "https://kv1d97wl-4200.inc1.devtunnels.ms",
-      "https://gz7582r6-6000.inc1.devtunnels.ms",
       "https://tictactoe-frontend-ten.vercel.app/",
     ],
+    methods: ["GET", "POST"],
   },
 });
 io.on("connection", (socket) => {
