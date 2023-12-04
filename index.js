@@ -12,10 +12,11 @@ app.use(
     origin: [
       "http://localhost:3000",
       "http://localhost:4200",
-      "https://admin.socket.io/",
+      "https://admin.socket.io",
       "https://tictactoe-frontend-ten.vercel.app",
+      "https://tictactoe-master.netlify.app",
     ],
-    methods: ["GET", "POST","PUT"],
+    methods: ["GET", "POST", "PUT"],
   })
 );
 connectDB();
@@ -39,6 +40,7 @@ const io = require("socket.io")(server, {
       "http://localhost:3000",
       "http://localhost:4200",
       "https://tictactoe-frontend-ten.vercel.app",
+      "https://tictactoe-master.netlify.app",
     ],
     methods: ["GET", "POST"],
   },
